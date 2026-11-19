@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>WaterWise | Monitoramento</title>
+
+    <link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="../js/script.js" defer></script>
+</head>
+
+<body>
+    <header>
+
+        <div class="logo">
+            <h2>WaterWise</h2>
+        </div>
+
+        <button class="botao-menu" type="button" aria-expanded="false" aria-controls="menu-principal" aria-label="Abrir menu">
+            <span class="icone-menu" aria-hidden="true"><span></span><span></span><span></span></span>
+            <span>Menu</span>
+        </button>
+
+        <nav id="menu-principal" aria-label="Navegação principal">
+            <ul>
+                <li><a href="../index.html">Início</a></li>
+                <li><a href="solucao.html">Solução</a></li>
+                <li><a href="monitoramento.html" aria-current="page">Monitoramento</a></li>
+                <li><a href="impacto.html">Impacto</a></li>
+                <li><a href="equipe.html">Equipe</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <main id="conteudo" class="monitoramento" tabindex="-1">
+        <section class="banner monitoramento-banner">
+            <div class="banner-texto">
+                <h1>Monitoramento de água</h1>
+                <p>Escolha o perfil e informe o consumo em litros para acompanhar os registros.</p>
+            </div>
+        </section>
+
+        <div class="conteudo-monitoramento">
+
+            <section class="painel" aria-labelledby="titulo-painel">
+                <h2 id="titulo-painel">Resumo do perfil Residencial</h2>
+                <p id="titulo-perfil">Perfil de consumo:</p>
+                <div class="botoes-perfil" role="group" aria-labelledby="titulo-perfil">
+                    <button type="button" id="perfil-residencial" aria-pressed="true">Residencial</button>
+                    <button type="button" id="perfil-agricola" aria-pressed="false">Agrícola</button>
+                </div>
+                <p id="perfil-selecionado" role="status">Perfil atual: Residencial.</p>
+                <div class="area-consumo">
+                    <div class="resumo-consumo">
+                <p>Total das medições deste perfil.</p>
+                <div class="indicadores">
+                    <article class="indicador">
+                        <h3>Total registrado</h3>
+                        <p id="consumo-total">0 L</p>
+                    </article>
+                    <article class="indicador">
+                        <h3>Medições</h3>
+                        <p id="total-registros">0</p>
+                    </article>
+                    <article class="indicador">
+                        <h3>Última medição</h3>
+                        <p id="situacao-consumo">Aguardando dados</p>
+                    </article>
+                </div>
+                <div class="recomendacao-card" aria-live="polite" aria-atomic="true">
+                    <h3 id="titulo-recomendacao">Comparação com a média</h3>
+                    <p id="texto-recomendacao">Adicione uma medição para comparar.</p>
+                </div>
+                    </div>
+            <div class="registro" role="group" aria-label="Opções para registrar uma medição">
+                <div class="opcoes-registro">
+                    <form id="form-consumo" novalidate>
+                        <h3 id="titulo-registro">Adicionar uma medição</h3>
+                        <p id="destino-registro">Registrar no perfil Residencial.</p>
+                        <div class="campo">
+                            <label for="consumo">Quantidade de água (litros)</label>
+                            <input type="number" id="consumo" min="0.1" max="1000000" step="0.1"
+                                aria-describedby="ajuda-consumo mensagem-formulario" placeholder="Ex.: 500" required>
+                            <p id="ajuda-consumo">De 0,1 a 1.000.000 litros, com até uma casa decimal.</p>
+                        </div>
+                        <button type="submit" class="botao">Adicionar consumo</button>
+                        <p id="mensagem-formulario" role="status" aria-live="polite"></p>
+                    </form>
+                    <div class="sensores">
+                        <h3>Ou usar um sensor simulado</h3>
+                        <p>Gere um valor fictício para testar o painel. Não há sensor conectado.</p>
+                        <button type="button" id="simular-sensor" class="botao botao-secundario">Gerar leitura de teste</button>
+                        <p id="mensagem-sensor" role="status" aria-live="polite"></p>
+                    </div>
+                </div>
+            </div>
+                <div class="regra-consumo">
+                    <p>Como funciona a comparação: comparamos a última medição com a média das anteriores do mesmo perfil. Um aumento maior que 20% gera um aviso. Esse limite é uma regra da simulação e não confirma vazamentos nem consumo ideal. Compare medições de períodos iguais e condições parecidas: mesma quantidade de moradores ou mesma área irrigada, por exemplo.</p>
+                </div>
+                </div>
+                <p class="aviso">Dados de exemplo. Ao recarregar a página, os registros voltam aos valores iniciais.</p>
+            </section>
+
+            <section class="historico" aria-labelledby="titulo-historico">
+                <h2 id="titulo-historico">Histórico do perfil Residencial</h2>
+                <div class="filtro-historico">
+                    <div class="campo">
+                        <label for="filtro-data">Consultar uma data</label>
+                        <input id="filtro-data" type="date" aria-describedby="ajuda-filtro">
+                    </div>
+                    <button type="button" id="limpar-filtro">Limpar filtro</button>
+                </div>
+                <p id="ajuda-filtro">A data filtra apenas a tabela, sem alterar o total do resumo.</p>
+                <p id="resultado-historico" role="status"></p>
+                <div class="tabela-container" tabindex="0" role="region" aria-label="Histórico de consumo com rolagem horizontal">
+                    <table>
+                        <caption>Medições demonstrativas do perfil Residencial</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">Perfil</th>
+                                <th scope="col">Consumo</th>
+                                <th scope="col">Origem</th>
+                                <th scope="col">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="lista-registros"></tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+
+        <p>WaterWise - Tecnologia a favor da água.</p>
+
+        <p>Projeto acadêmico | FIAP 2026</p>
+
+    </footer>
+
+</body>
+
+</html>
